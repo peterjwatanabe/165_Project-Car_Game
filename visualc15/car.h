@@ -1,18 +1,20 @@
 #ifndef car_h
 #define car_h
+#include "AnimatedRect.h"
 #include "engine.h"
 #include "gearbox.h"
 
-class car {
+class car: public AnimatedRect {
 	
 	float position, velocity, accel = 0;
 	int RPM;
 	engine carengine;
 	gearbox cargearbox;
+	int currentLane;
 
 public:
 
-	car() : position(0), velocity(0), accel(0), RPM(0) {}
+	car() : position(0), velocity(0), accel(0), RPM(0), AnimatedRect(const char*, int, int, int, float, float, float, float) {}
 
 	car(float pos, engine carengine, gearbox cargearbox) {
 		position = pos;
@@ -42,6 +44,10 @@ public:
 		accel = acceleration;
 	}
 
+	void setLane(int lane) {
+		currentLane = lane;
+	}
+
 	/*----------------------------Getters-------------------------------------*/
 
 	float getAccel() const{
@@ -58,6 +64,10 @@ public:
 
 	int getRPM() const {
 		return RPM;
+	}
+
+	int getLane() const {
+		return currentLane;
 	}
 
 
