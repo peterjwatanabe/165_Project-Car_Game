@@ -2,11 +2,12 @@
 #define Obstacle_h
 #include "TexRect.h"
 #include "randomGen.h"
+#include "objectDimesions.h"
 
 class Obstacle : public TexRect{
 protected:
 	int lane;
-	int obstacleType;
+	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 
 public:
 	Obstacle(const char* map_filename) : TexRect(map_filename, x, y, w, h) {
@@ -14,7 +15,7 @@ public:
 		obstacleType = 1;
 	};
 
-	void changeLane() {		// decides what lane the 
+	void changeLane() {		// decides what lane the obstacle is in
 		lane = getRandom();
 	}
 
@@ -38,27 +39,42 @@ public:
 
 	void Spawn(int carLane) {
 		if (lane == 1) {
-			setX();
+			setX(LeftmostOne);
 			setY();
 		};
 		if (lane == 2) {
-			setX();
+			setX(LeftmostTwo);
 			setY();
 		};
 		if (lane == 3) {
-			setX();
+			setX(LeftmostThree);
 			setY();
 		};
 		if (lane == 4) {
-			setX();
+			setX(LeftmostFour);
 			setY();
 		};
 		if (lane == 5) {
-			setX();
+			setX(LeftmostFour);
 			setY();
 		};
+
 		if (lane == 6) {		// "lane 6" is the car's current lane position
-			setX();		// would obtain the fixed lane position that the car is currently in
+			if (carLane == 1) {
+				setX(LeftmostOne);
+			}
+			if (carLane == 2) {
+				setX(LeftmostTwo);
+			}
+			if (carLane == 3) {
+				setX(LeftmostThree);
+			}
+			if (carLane == 4) {
+				setX(LeftmostFour);
+			}
+			if (carLane == 5) {
+				setX(LeftmostFive);
+			}
 			setY();
 		};
 	}
@@ -78,7 +94,6 @@ public:
 		}
 	}
 
-}
-
+};
 
 #endif
