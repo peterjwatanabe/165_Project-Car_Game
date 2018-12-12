@@ -1,8 +1,9 @@
 #ifndef Obstacle_h
 #define Obstacle_h
 #include "TexRect.h"
-#include "randomGen.h"
-#include "objectDimesions.h"
+#include "../visualc15/randomGen.h"
+#include "../visualc15/objectDimensions.h"
+#include "../visualc15/car.h"
 
 class Obstacle : public TexRect{
 protected:
@@ -10,7 +11,7 @@ protected:
 	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 
 public:
-	Obstacle(const char* map_filename) : TexRect(map_filename, x, y, w, h) {
+	Obstacle(const char* map_filename, float x = 0, float y = 0, float w = 0.5, float h = 0.5) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		obstacleType = 1;
 	};
@@ -19,6 +20,7 @@ public:
 		lane = getRandom();
 	}
 
+	/*
 	void changeObstacle() {	// changes the image of the obstacle
 		if () {
 
@@ -36,27 +38,28 @@ public:
 
 		}
 	}
+	*/
 
 	void Spawn(int carLane) {
 		if (lane == 1) {
 			setX(LeftmostOne);
-			setY();
+			setY(1.4);
 		};
 		if (lane == 2) {
 			setX(LeftmostTwo);
-			setY();
+			setY(1.4);
 		};
 		if (lane == 3) {
 			setX(LeftmostThree);
-			setY();
+			setY(1.4);
 		};
 		if (lane == 4) {
 			setX(LeftmostFour);
-			setY();
+			setY(1.4);
 		};
 		if (lane == 5) {
 			setX(LeftmostFour);
-			setY();
+			setY(1.4);
 		};
 
 		if (lane == 6) {		// "lane 6" is the car's current lane position
@@ -75,7 +78,7 @@ public:
 			if (carLane == 5) {
 				setX(LeftmostFive);
 			}
-			setY();
+			setY(1.4);
 		};
 	}
 
@@ -83,12 +86,12 @@ public:
 		changeLane();
 	}
 
-	void movement() {
-		setY();
+	void movement(car& car) {
+		
 	}
 
-	void getHit(int positonX, int positonY) {
-		if (contains(positionX, positonY)) {
+	void getHit(int positionX, int positionY) {
+		if (contains(positionX, positionY)) {
 			// animate car explostion
 			// game over screen
 		}

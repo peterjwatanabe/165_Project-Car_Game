@@ -1,23 +1,23 @@
 #ifndef car_h
 #define car_h
-#include "AnimatedRect.h"
 #include "engine.h"
 #include "gearbox.h"
+#include "AnimatedRect.h"
 
-class car: public AnimatedRect {
+class car : public AnimatedRect {
 	
 	float position, velocity, accel = 0;
 	int RPM;
 	engine carengine;
 	gearbox cargearbox;
-	int currentLane;
 
 public:
 
-	car() : position(0), velocity(0), accel(0), RPM(0), AnimatedRect(const char*, int, int, int, float, float, float, float) {}
-
-	car(float pos, engine carengine, gearbox cargearbox) {
-		position = pos;
+	car::car() : AnimatedRect("", 0, 0, 0, 0, 0, 0, 0) {
+		position = 0; velocity = 0; accel = 0; RPM = 0;
+	}
+																	  //filename, rows, columns, rate, x, y, w, h
+	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : AnimatedRect(fileName, 0, 0, 0, 0, 0, 0, 0) {
 		this->carengine = carengine;
 		this->cargearbox = cargearbox;
 	}
@@ -36,16 +36,16 @@ public:
 		accel += cargearbox.getBonusAccel();
 	}
 
+	void setChassis(TexRect chas) {	//if gearbox needs to be swapped; shouldn't necessarily be called
+		
+	}
+
 	void setPosition(float pos) {
 		position = pos;
 	}
 
 	void setAccel(float acceleration) {
 		accel = acceleration;
-	}
-
-	void setLane(int lane) {
-		currentLane = lane;
 	}
 
 	/*----------------------------Getters-------------------------------------*/
@@ -64,10 +64,6 @@ public:
 
 	int getRPM() const {
 		return RPM;
-	}
-
-	int getLane() const {
-		return currentLane;
 	}
 
 

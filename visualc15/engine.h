@@ -11,26 +11,29 @@ class engine {
 
 public:
 
-	engine() : selected_engine(stock){}
+	engine() : topSpeed(0), baseAccel(0), topRPM(0){}
 
 	engine(engines selectedEngine) {
 		selected_engine = selectedEngine;
 		setupEngine(selectedEngine);
 	}
 
-	void setupEngine(engines selected_engine) {		//all setters in one because all individual engines will have consistent values; no individual setters.
+	void setupEngine(int num) {		//all setters in one because all individual engines will have consistent values; no individual setters.
 		switch (selected_engine) {
-		case stock:
+		case 1:
+			selected_engine = stock;
 			topSpeed = 120;
 			baseAccel = 10;
 			topRPM = 6000;
 			break;
-		case sport:
+		case 2:
+			selected_engine = sport;
 			topSpeed = 140;
 			baseAccel = 15;
 			topRPM = 7000;
 			break;
-		case racing:
+		case 3:
+			selected_engine = racing;
 			topSpeed = 180;
 			baseAccel = 20;
 			topRPM = 7500;

@@ -18,16 +18,19 @@ public:
 		setupGearbox(selected_gearing);
 	}
 
-	void setupGearbox(gearing selected_gearing) {
-		switch (selected_gearing) {
-		case (balanced):
+	void setupGearbox(int num) {
+		switch (num) {
+		case (1):
 			accelBonus = 0;
+			selected_gearing = balanced;
 			break;
-		case (rally):
+		case (2):
 			accelBonus = 10;
+			selected_gearing = rally;
 			break;
-		case (topspeed):
+		case (3):
 			accelBonus = -10;
+			selected_gearing = topspeed;
 			break;
 		}
 	}
