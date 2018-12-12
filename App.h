@@ -8,9 +8,13 @@
 
 
 class App: public GlutApp {
+	float mx;
+	float my;
+
     AnimatedRect* explosion;
     AnimatedRect* fastExplosion;
 
+	/*
 	TexRect* engines;
 	TexRect* gearboxes;
 	TexRect* chassis;
@@ -23,6 +27,7 @@ class App: public GlutApp {
 	TexRect* chassis0;
 	TexRect* chassis1;
 	TexRect* chassis2;
+	*/
 
 	std::vector <Obstacle*> barrels;
     
@@ -37,6 +42,7 @@ public:
     void draw();
     
     void keyDown(unsigned char key, float x, float y);
+	void leftMouseDown(float x, float y);
     
     ~App();
     

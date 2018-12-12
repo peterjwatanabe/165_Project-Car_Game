@@ -144,6 +144,7 @@
     <ClInclude Include="car.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="gearbox.h" />
+    <ClInclude Include="intro.h" />
     <ClInclude Include="objectDimensions.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="randomGen.h" />

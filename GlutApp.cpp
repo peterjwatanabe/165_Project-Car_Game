@@ -163,6 +163,7 @@ void GlutApp::glutDisplayCB(){
     // We have been drawing everything to the back buffer
     // Swap the buffers to see the result of what we drew
     glFlush();
+    glFlush();
     glutSwapBuffers();
 }
 

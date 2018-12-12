@@ -55,6 +55,9 @@ void App::setup() {
 
 
 App::App(int argc, char** argv) : GlutApp(argc, argv) {
+	mx = 0;
+	my = 0;
+
 	explosion = new AnimatedRect("../fireball.bmp", 6, 6, 100, -0.5, 0.5, 0.5, 0.5);
 
 	fastExplosion = new AnimatedRect("../fireball.bmp", 6, 6, 10, 0.5, 0.5, 0.5, 0.5);
@@ -75,10 +78,11 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	*/
 	setup();
 	
+	/*
 	for (int i = 0; i < 5; i++) {
 		barrels.push_back(new Obstacle("../pixel-barrel.png"));
 	}
-
+	*/
 	background = new TexRect("../road.png", -1, 1, 2, 2);
 	
 }
@@ -105,8 +109,10 @@ void App::draw() {
 	chassis1->draw(0.0);
 	chassis2->draw(0.0);
 	*/
-	selectedCar->draw(0);
-	background->draw(0);
+	selectedCar->draw(0.15);
+	//background->draw(1);
+
+
 }
 
 void App::keyDown(unsigned char key, float x, float y){
@@ -120,11 +126,22 @@ void App::keyDown(unsigned char key, float x, float y){
     }
 }
 
+void App::leftMouseDown(float x, float y) {
+	mx = x;
+	my = y;
+
+
+}
+
 
 App::~App(){
     std::cout << "Exiting..." << std::endl;
     delete explosion;
     delete fastExplosion;
+
+	delete selectedCar;
+	delete background;
+
 	/*
 	delete engines;
 	delete gearboxes;
