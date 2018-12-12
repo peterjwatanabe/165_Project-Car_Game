@@ -3,7 +3,9 @@
 #include <vector>
 #include <iostream>
 
-void setup() {
+car* selectedCar;
+
+void App::setup() {
 	engine* selectedEngine = new engine();
 	gearbox* selectedGearbox = new gearbox();
 	char* vehicle;
@@ -38,16 +40,16 @@ void setup() {
 	std::cin >> chas;
 	switch (chas) {
 	case 1:
-		vehicle = "../E30";
+		vehicle = "../E30.png";
 		break;
 	case 2:
-		vehicle = "../shelby";
+		vehicle = "../shelby.png";
 		break;
 	case 3:
-		vehicle = "../lambo";
+		vehicle = "../lambo.png";
 		break;
 	}
-	car* selectedCar = new car(vehicle, *selectedEngine, *selectedGearbox);
+	selectedCar = new car(vehicle, *selectedEngine, *selectedGearbox);
 }
 
 
@@ -57,6 +59,7 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 
 	fastExplosion = new AnimatedRect("../fireball.bmp", 6, 6, 10, 0.5, 0.5, 0.5, 0.5);
 
+	/*
 	engines = new TexRect("../engines.png", -0.20, 0.95, 0.40, 0.05);
 	gearboxes = new TexRect("../gearboxes.png", -0.20, 0.35, 0.40, 0.05);
 	chassis = new TexRect("../chassis.png", -0.20, -0.65, 0.40, 0.05);
@@ -69,11 +72,14 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	chassis0 = new TexRect("../E30.png", -0.95, -0.95, 0.60, 0.60);
 	chassis1 = new TexRect("../shelby.png", -0.30, -0.95, 0.60, 0.60);
 	chassis2 = new TexRect("../lambo.png", 0.35, -0.95, 0.60, 0.60);
+	*/
 	setup();
-
+	
 	for (int i = 0; i < 5; i++) {
 		barrels.push_back(new Obstacle("../pixel-barrel.png"));
 	}
+
+	background = new TexRect("../road.png", -1, 1, 2, 2);
 	
 }
 
@@ -85,6 +91,7 @@ void App::draw() {
 
 	//barrels[0]->draw(1);
 
+	/*
 	engines->draw(0.0);
 	gearboxes->draw(0.0);
 	chassis->draw(0.0);
@@ -97,7 +104,9 @@ void App::draw() {
 	chassis0->draw(0.0);
 	chassis1->draw(0.0);
 	chassis2->draw(0.0);
-
+	*/
+	selectedCar->draw(0);
+	background->draw(0);
 }
 
 void App::keyDown(unsigned char key, float x, float y){
@@ -116,7 +125,7 @@ App::~App(){
     std::cout << "Exiting..." << std::endl;
     delete explosion;
     delete fastExplosion;
-
+	/*
 	delete engines;
 	delete gearboxes;
 	delete chassis;
@@ -129,4 +138,6 @@ App::~App(){
 	delete chassis0;
 	delete chassis1;
 	delete chassis2;
+	*/
+	
 }

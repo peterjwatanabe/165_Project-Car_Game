@@ -4,7 +4,7 @@
 #include "gearbox.h"
 #include "AnimatedRect.h"
 
-class car : public AnimatedRect {
+class car : public TexRect {
 	
 	float position, velocity, accel = 0;
 	int RPM;
@@ -13,11 +13,11 @@ class car : public AnimatedRect {
 
 public:
 
-	car::car() : AnimatedRect("", 0, 0, 0, 0, 0, 0, 0) {
+	car::car() : TexRect("", 0, 0, 0, 0) {
 		position = 0; velocity = 0; accel = 0; RPM = 0;
 	}
 																	  //filename, rows, columns, rate, x, y, w, h
-	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : AnimatedRect(fileName, 0, 0, 0, 0, 0, 0, 0) {
+	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, 0, 0, 0.370, 0.632) {
 		this->carengine = carengine;
 		this->cargearbox = cargearbox;
 	}

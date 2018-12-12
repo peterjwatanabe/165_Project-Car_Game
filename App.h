@@ -26,9 +26,13 @@ class App: public GlutApp {
 
 	std::vector <Obstacle*> barrels;
     
+	TexRect* background;
+
     
 public:
     App(int argc, char** argv);
+
+	void setup();
     
     void draw();
     
