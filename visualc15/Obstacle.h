@@ -5,7 +5,7 @@
 #include "../visualc15/objectDimensions.h"
 #include "../visualc15/car.h"
 
-class Obstacle : public TexRect{
+class Obstacle : public TexRect, protected Timer{
 protected:
 	int lane;
 	char* imageFile;
@@ -24,6 +24,7 @@ public:
 		changeLane();
 		imageFile = (char*) map_filename;
 		obstacleType = 1;
+		
 	};
 
 	void changeLane() {		// decides what lane the obstacle is in
@@ -32,7 +33,7 @@ public:
 	}
 
 	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!
-		Obstacle* temp = new Obstacle(imageFile);
+		//Obstacle* temp = new Obstacle(imageFile);
 		//this = temp;
 	}
 
@@ -97,7 +98,7 @@ public:
 		
 	}
 
-	void movement() {
+	void action() {
 		y -= 0.001;
 	}
 

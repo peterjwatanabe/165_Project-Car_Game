@@ -32,9 +32,14 @@ void App::draw() {
 	if (intro->getIntroDone()) {
 		selectedCar->draw(0.15);
 		selectedCar->redrawScene();
+		
 		barrels[0]->Spawn(1);
-		barrels[0]->movement();
 		barrels[0]->Despawn();
+		
+		glutPostRedisplay();
+
+		barrels[1]->Spawn(1);
+		barrels[1]->Despawn();
 	}
 	
 
