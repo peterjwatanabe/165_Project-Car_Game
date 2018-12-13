@@ -8,11 +8,20 @@
 class Obstacle : public TexRect{
 protected:
 	int lane;
+	char* imageFile;
 	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 
 public:
+
+	Obstacle() : TexRect("", 0, 0, 0, 0) {
+		changeLane();
+		imageFile = "";
+		obstacleType = 0;
+	}
+
 	Obstacle(const char* map_filename, float x = 0, float y = 0, float w = 0.5, float h = 0.5) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
+		imageFile = (char*) map_filename;
 		obstacleType = 1;
 	};
 
@@ -20,25 +29,11 @@ public:
 		lane = getRandom();
 	}
 
-	/*
-	void changeObstacle() {	// changes the image of the obstacle
-		if () {
-
-		}
-
-		else if () {
-
-		}
-
-		else if () {
-
-		}
-
-		else if () {
-
-		}
+	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!!!!!!!!!!!!!!
+		Obstacle* temp = new Obstacle(imageFile);
+		//this = temp;
 	}
-	*/
+
 
 	void Spawn(int carLane) {
 		if (lane == 1) {

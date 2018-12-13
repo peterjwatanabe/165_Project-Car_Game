@@ -20,12 +20,12 @@ void App::draw() {
 
 	intro->display();
 	intro->setup(mx, my);
-	selectedCar = intro->getCar();
+	selectedCar = intro->selectedCar;
 	intro->continueToGame();
 
 
-	//selectedCar->draw(0.15);
-	//background->draw(1);
+	selectedCar->draw(0.15);
+	selectedCar->redrawScene();
 
 
 }

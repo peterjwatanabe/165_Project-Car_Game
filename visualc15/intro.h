@@ -4,6 +4,7 @@
 #include "../visualc15/engine.h"
 #include "../visualc15/gearbox.h"
 #include "../visualc15/car.h"
+#include "App.h"
 
 class introduction {
 
@@ -30,6 +31,7 @@ class introduction {
 	bool carGot;
 
 	bool introDone;
+
 
 	TexRect* backg;
 
@@ -64,9 +66,7 @@ public:
 
 		introDone = false;
 
-
 		backg = new TexRect("../road.png", -1, 1, 2, 2);
-
 	}
 
 	void display() const {
@@ -89,6 +89,7 @@ public:
 	}
 
 	void setup(float mx, float my) {
+		static car* tempCar;
 
 		// Engine selection
 		if (engine0->contains(mx, my) && engineCheck == false) {
@@ -135,9 +136,8 @@ public:
 		// makes selectedCar being able to be returned in another function
 		if (engineCheck == true && gearboxCheck == true && vehicleCheck == true && introDone == false) {
 			std::cout << "Car is made" << std::endl;
-			car* tempCar = new car(vehicle, *selectedEngine, *selectedGearbox);
+			tempCar = new car(vehicle, *selectedEngine, *selectedGearbox);
 			selectedCar = tempCar;
-			delete tempCar;
 		}
 
 	}
@@ -179,6 +179,8 @@ public:
 		delete selectedEngine;
 		delete selectedGearbox;
 		delete vehicle;
+
+		delete tempCar;
 
 		delete backg;
 	}
