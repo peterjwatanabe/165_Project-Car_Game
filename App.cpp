@@ -32,7 +32,9 @@ void App::draw() {
 	if (intro->getIntroDone()) {
 		selectedCar->draw(0.15);
 		selectedCar->redrawScene();
-		barrels[0]->Spawn(4);
+		barrels[0]->Spawn(1);
+		barrels[0]->movement();
+		barrels[0]->Despawn();
 	}
 	
 
@@ -40,7 +42,7 @@ void App::draw() {
 }
 
 void App::idle() {
-
+	//barrels[0]->movement();
 }
 
 void App::keyDown(unsigned char key, float x, float y){
