@@ -22,20 +22,20 @@ public:
 		switch (selected_engine) {
 		case 1:
 			selected_engine = stock;
-			topSpeed = 120;
-			baseAccel = 10;
+			topSpeed = 3.0;
+			baseAccel = 0.1;
 			topRPM = 6000;
 			break;
 		case 2:
 			selected_engine = sport;
-			topSpeed = 140;
-			baseAccel = 15;
+			topSpeed = 3.5;
+			baseAccel = 0.15;
 			topRPM = 7000;
 			break;
 		case 3:
 			selected_engine = racing;
-			topSpeed = 180;
-			baseAccel = 20;
+			topSpeed = 4.0;
+			baseAccel = 0.20;
 			topRPM = 7500;
 			break;
 		}

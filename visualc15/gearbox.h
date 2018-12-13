@@ -4,13 +4,16 @@
 class gearbox {
 	
 	typedef enum { balanced, rally, topspeed } gearing;
-	typedef enum { neutral, first, second, third, fourth, fifth, sixth } gears;
+	
 	float accelBonus;
 	gearing selected_gearing;
-	gears current_gear;
+	
 
 public:
-
+	
+	typedef enum { neutral, first, second, third, fourth, fifth, sixth } gears;
+	gears current_gear;
+	
 	gearbox() : selected_gearing(balanced), current_gear(neutral), accelBonus(0) {}
 
 	gearbox(gearing selected_gearing) {
@@ -25,11 +28,11 @@ public:
 			selected_gearing = balanced;
 			break;
 		case (2):
-			accelBonus = 10;
+			accelBonus = .10;
 			selected_gearing = rally;
 			break;
 		case (3):
-			accelBonus = -10;
+			accelBonus = -.07;
 			selected_gearing = topspeed;
 			break;
 		}
@@ -64,6 +67,9 @@ public:
 		return accelBonus;
 	}
 
+	gears getCurrentGear() const{
+		return current_gear;
+	}
 
 	~gearbox() {
 

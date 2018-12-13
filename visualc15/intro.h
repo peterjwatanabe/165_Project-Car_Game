@@ -70,6 +70,8 @@ public:
 	}
 
 	void display() const {
+		backg->draw(-0.1);
+
 		engines->draw(0.0);
 		gearboxes->draw(0.0);
 		chassis->draw(0.0);
@@ -83,7 +85,7 @@ public:
 		chassis1->draw(0.0);
 		chassis2->draw(0.0);
 
-		backg->draw(-0.1);
+		
 	}
 
 	void setup(float mx, float my) {
@@ -130,6 +132,7 @@ public:
 			vehicleCheck = true;
 		}
 
+		// makes selectedCar being able to be returned in another function
 		if (engineCheck == true && gearboxCheck == true && vehicleCheck == true && introDone == false) {
 			std::cout << "Car is made" << std::endl;
 			car* tempCar = new car(vehicle, *selectedEngine, *selectedGearbox);

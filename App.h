@@ -12,19 +12,16 @@ class App: public GlutApp {
 	float mx;
 	float my;
 
-    AnimatedRect* explosion;
-    AnimatedRect* fastExplosion;
-
 	car* selectedCar;
 	introduction* intro;
 	
     
 public:
     App(int argc, char** argv);
-
-	void setup();
     
     void draw();
+
+	void idle();
     
     void keyDown(unsigned char key, float x, float y);
 	void leftMouseDown(float x, float y);
