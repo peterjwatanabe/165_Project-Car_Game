@@ -32,44 +32,47 @@ public:
 		//imageFile = (char*) map_filename;
 		//obstacleType = 1;
 		cycle = 1;
+
 		animating = false;
-		setRate(16);
+		setRate(1);
 		start();
-		
 	};
 
 	void changeLane() {		// decides what lane the obstacle is in
 		lane = getRandom();
+		spawning = true;
 	}
 
-	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!
-		//Obstacle* temp = new Obstacle(imageFile);
-		//this = temp;
+	void startMovement() {
+		if (spawning == true) {
+			animating = true;
+			Spawn();
+		}
 	}
 
 	void Spawn() {
-		if (spawning == false) {
-			return;
-		}
-		animating = true;
-
 		if (lane == 1) {
+			cout << "wow 1" << endl;
 			setX(LeftmostOne);
 			setY(1.35);
 		}
 		else if (lane == 2) {
+			cout << "wow 2" << endl;
 			setX(LeftmostTwo);
 			setY(1.35);
 		}
 		else if (lane == 3) {
+			cout << "wow 3" << endl;
 			setX(LeftmostThree);
 			setY(1.35);
 		}
 		else if (lane == 4) {
+			cout << "wow 4" << endl;
 			setX(LeftmostFour);
 			setY(1.35);
 		}
 		else if (lane == 5) {
+			cout << "wow 5" << endl;
 			setX(LeftmostFive);
 			setY(1.35);
 		}

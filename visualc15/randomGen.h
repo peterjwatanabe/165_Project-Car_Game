@@ -1,12 +1,13 @@
 #ifndef randomGen_h
 #define randomGen_h
-#include <cstdlib>
-#include <time.h>
+#include <random>
 
 static int getRandom() {
-	srand(time(NULL));
-	int randNum = (rand() % 5) + 1;	// generates a number 1-5
-	return randNum;
+	std::mt19937 rng;
+	rng.seed(std::random_device()());
+	std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 5);	// generates a number 1-5
+
+	return dist6(rng);
 }
 
 #endif
