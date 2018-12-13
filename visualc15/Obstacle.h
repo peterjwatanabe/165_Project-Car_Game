@@ -38,6 +38,10 @@ public:
 		start();
 	};
 
+	void setAnimating(bool anim) {
+		animating = anim;
+	}
+
 	void changeLane() {		// decides what lane the obstacle is in
 		lane = getRandom();
 		spawning = true;
@@ -90,12 +94,11 @@ public:
 		}
 	}
 
-	void getHit(float positionX, float positionY) {
+	bool getHit(float positionX, float positionY) {
 		if (contains(positionX, positionY)) {
-			// animate car explostion
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			// game over screen
+			return true;
 		}
+		return false;
 	}
 
 };

@@ -4,13 +4,17 @@
 #include <iostream>
 #include "../visualc15/intro.h"
 
+float explosionX;
+float explosionY;
+bool animateOnce = false;
 
 App::App(int argc, char** argv) : GlutApp(argc, argv) {
 
-	//explosion = new AnimatedRect("../fireball.bmp", 6, 6, 100, -0.5, 0.5, 0.5, 0.5);
+	explosion = new AnimatedRect("../explode_1.png", 4, 4, 100, -0.5, 0.5, 0.5, 0.5);
 
 	selectedCar = new car();
 	intro = new introduction();
+	background = new TexRect("../5lane.png", -1, 1, 2, 2);
 
 	
 	for (int i = 0; i < 3; i++) {
@@ -33,13 +37,15 @@ void App::draw() {
 
 	
 	if (intro->getIntroDone()) {
-		selectedCar->draw(0.15);
-		
-											// place stuff outside of here in here once done : NOTE
-		barrels[0]->draw(0.0);
-		barrels[1]->draw(0.0);
-		barrels[2]->draw(0.0);
+		background->draw(-0.5);
 
+		barrels[0]->draw(-0.1);
+		barrels[1]->draw(-0.1);
+		barrels[2]->draw(-0.1);
+
+		selectedCar->draw(0.0);
+
+		explosion->draw(0.15);
 	}
 	
 }
@@ -50,11 +56,60 @@ void App::idle() {
 		barrels[1]->startMovement();
 		barrels[2]->startMovement();
 
-		/*
-		barrels[0]->getHit(selectedCar->getX(), selectedCar->getY());
-		barrels[1]->getHit(selectedCar->getX(), selectedCar->getY());
-		barrels[2]->getHit(selectedCar->getX(), selectedCar->getY());
-		*/
+		if (selectedCar->getEndState() == false) {
+			for (int i = 0; i < 3; i++) {
+				if (barrels[i]->getHit(selectedCar->getX(), selectedCar->getY())) {
+					if (selectedCar->getFilename() == "../lambo.png") {
+						selectedCar->setImage("../lambobroke.png");
+						selectedCar->setAnimating(false);
+						barrels[0]->setAnimating(false);
+						barrels[1]->setAnimating(false);
+						barrels[2]->setAnimating(false);
+						explosionX = barrels[i]->getX();
+						explosionY = barrels[i]->getY();
+						explosion->setX(explosionX);
+						explosion->setY(explosionY);
+						//explosion->playOnce();
+						selectedCar->setEndState(true);
+						break;
+					}
+					else if (selectedCar->getFilename() == "../shelby.png") {
+						selectedCar->setImage("../shelbybroke.png");
+						selectedCar->setAnimating(false);
+						barrels[0]->setAnimating(false);
+						barrels[1]->setAnimating(false);
+						barrels[2]->setAnimating(false);
+						explosionX = barrels[i]->getX();
+						explosionY = barrels[i]->getY();
+						explosion->setX(explosionX);
+						explosion->setY(explosionY);
+						//explosion->playOnce();
+						selectedCar->setEndState(true);
+						break;
+					}
+					else if (selectedCar->getFilename() == "../E30.png") {
+						selectedCar->setImage("../E30broke.png");
+						selectedCar->setAnimating(false);
+						barrels[0]->setAnimating(false);
+						barrels[1]->setAnimating(false);
+						barrels[2]->setAnimating(false);
+						explosionX = barrels[i]->getX();
+						explosionY = barrels[i]->getY();
+						explosion->setX(explosionX);
+						explosion->setY(explosionY);
+						//explosion->playOnce();
+						selectedCar->setEndState(true);
+						break;
+					}
+				}
+			}
+		}
+
+		
+
+		if (selectedCar->getEndState()) {
+			explosion->playOnce();
+		}
 
 	}
 	
@@ -65,6 +120,10 @@ void App::keyDown(unsigned char key, float x, float y){
     if (key == 27){
         exit(0);
     }
+
+	if (key == ' ') {
+		explosion->playOnce();
+	}
 
 	if (key == 'a') {
 		selectedCar->turnLeft();
@@ -87,6 +146,7 @@ App::~App(){
 
 	delete selectedCar;
 	delete intro;
+	delete background;
 
 	
 	for (int i = 0; i < 3; i++) {

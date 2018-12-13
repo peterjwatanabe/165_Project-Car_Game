@@ -15,8 +15,8 @@ class car : public TexRect, protected Timer {
 	engine* carengine;
 	gearbox* cargearbox;
 	bool animating;
-
 	bool left_right;		 // false = left, true = right
+	bool endState;
 
 public:
 
@@ -24,17 +24,17 @@ public:
 		velocity = 0; accel = 0; RPM = 0;
 	}
 																			 //filename, rows, columns, rate, x, y, w, h
-	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, LeftmostThree, 0, 0.370, 0.632) {
+	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, LeftmostThree, -0.5, 0.3, 0.512) {
 		this->carengine = &carengine;
 		this->cargearbox = &cargearbox;
 		this->filename = fileName;
 		accel = this->carengine->getBaseAccel();
 		accel += this->cargearbox->getBonusAccel();
 		animating = false;
-
 		left_right = true;
+		endState = false;
 
-		setRate(16);
+		setRate(7);
 		start();
 	}
 
@@ -46,10 +46,10 @@ public:
 		accel += this->cargearbox->getBonusAccel();
 		this->RPM = someCar.RPM;
 		animating = false;
-
 		left_right = true;
+		endState = false;
 
-		setRate(16);
+		setRate(7);
 		start();
 	}
 
@@ -78,6 +78,10 @@ public:
 		glutPostRedisplay();
 	}
 
+	void setEndState(bool end) {
+		endState = end;
+	}
+
 	void setImage(char* filename) {
 		texture_id = SOIL_load_OGL_texture
 		(
@@ -95,7 +99,14 @@ public:
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	}
 
+	void setAnimating(bool anim) {
+		animating = anim;
+	}
+
 	void turnLeft() {
+		if (endState) {
+			return;
+		}
 		left_right = false;
 		animating = true;
 		
@@ -119,6 +130,9 @@ public:
 	}
 
 	void turnRight() {
+		if (endState) {
+			return;
+		}
 		left_right = true;
 		animating = true;
 
@@ -155,12 +169,20 @@ public:
 		return RPM;
 	}
 
+	char* getFilename() const {
+		return filename;
+	}
+
 	bool getAnimating() const {
 		return animating;
 	}
 
 	bool getLeftRight() const {
 		return left_right;
+	}
+
+	bool getEndState() const {
+		return endState;
 	}
 
 
@@ -194,10 +216,6 @@ public:
 		}
 		
 		return velocity + accel;
-
-	}
-
-	void movementStart() {
 
 	}
 

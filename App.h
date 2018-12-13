@@ -12,8 +12,12 @@ class App: public GlutApp {
 	float mx;
 	float my;
 
+	AnimatedRect* explosion;
+
 	car* selectedCar;
 	introduction* intro;
+
+	TexRect* background;
 
 	std::vector<Obstacle*> barrels;
 	
