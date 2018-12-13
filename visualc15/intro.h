@@ -41,17 +41,15 @@ public:
 	introduction() {
 		engines = new TexRect("../engines.png", -0.20, 0.95, 0.40, 0.05);
 		gearboxes = new TexRect("../gearboxes.png", -0.20, 0.28, 0.40, 0.05);
-		//gearboxes = new TexRect("../gearboxes.png", -0.20, 0.35, 0.40, 0.05);
 		chassis = new TexRect("../chassis.png", -0.20, -0.38, 0.40, 0.05);
 		engine0 = new TexRect("../standardengine.png", -0.95, 0.90, 0.60, 0.60);
-		//engine0 = new TexRect("../standardengine.png", -0.95, 0.30, 0.60, 0.60);
 		engine1 = new TexRect("../sportengine.png", -0.30, 0.90, 0.60, 0.60);
 		engine2 = new TexRect("../racingengine.png", 0.35, 0.90, 0.60, 0.60);
 		gearbox0 = new TexRect("../stockgearing.png", -0.95, 0.22, 0.60, 0.60);
-		gearbox1 = new TexRect("../rallygearing.png", -0.30, 0.22, 0.60, 0.60);//-.3
+		gearbox1 = new TexRect("../rallygearing.png", -0.30, 0.22, 0.60, 0.60);
 		gearbox2 = new TexRect("../racegearing.png", 0.35, 0.22, 0.60, 0.60);
 		chassis0 = new TexRect("../E30.png", -0.95, -0.43, 0.60, 0.60);
-		chassis1 = new TexRect("../shelby.png", -0.30, -0.43, 0.60, 0.60);//-.95
+		chassis1 = new TexRect("../shelby.png", -0.30, -0.43, 0.60, 0.60);
 		chassis2 = new TexRect("../lambo.png", 0.35, -0.43, 0.60, 0.60);
 
 		selectedCar = new car();
@@ -135,7 +133,6 @@ public:
 
 		// makes selectedCar being able to be returned in another function
 		if (engineCheck == true && gearboxCheck == true && vehicleCheck == true && introDone == false) {
-			std::cout << "Car is made" << std::endl;
 			tempCar = new car(vehicle, *selectedEngine, *selectedGearbox);
 			selectedCar = tempCar;
 		}

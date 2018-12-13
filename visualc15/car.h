@@ -3,6 +3,9 @@
 #include "engine.h"
 #include "gearbox.h"
 #include "AnimatedRect.h"
+#include "objectDimensions.h"
+
+using namespace std;
 
 class car : public TexRect, protected Timer {
 	
@@ -11,19 +14,28 @@ class car : public TexRect, protected Timer {
 	char* filename;
 	engine* carengine;
 	gearbox* cargearbox;
+	bool animating;
+
+	bool left_right;		 // false = left, true = right
 
 public:
 
 	car::car() : TexRect("", 0, 0, 0, 0) {
 		velocity = 0; accel = 0; RPM = 0;
 	}
-																	  //filename, rows, columns, rate, x, y, w, h
+																			 //filename, rows, columns, rate, x, y, w, h
 	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, LeftmostThree, 0, 0.370, 0.632) {
 		this->carengine = &carengine;
 		this->cargearbox = &cargearbox;
 		this->filename = fileName;
 		accel = this->carengine->getBaseAccel();
 		accel += this->cargearbox->getBonusAccel();
+		animating = false;
+
+		left_right = true;
+
+		setRate(16);
+		start();
 	}
 
 	car::car(const car& someCar): TexRect((&someCar)->filename, 0, 0, 0.370, 0.632) {
@@ -32,12 +44,17 @@ public:
 		this->filename = someCar.filename;
 		accel = this->carengine->getBaseAccel();
 		accel += this->cargearbox->getBonusAccel();
+		this->RPM = someCar.RPM;
+		animating = false;
+
+		left_right = true;
+
+		setRate(16);
+		start();
 	}
 
 	/*---------------------------Setters-------------------------------------*/
-
 	
-
 	void setEngine(engine newengine) {	//if engine needs to be swapped; shouldn't necessarily be called
 		carengine = &newengine;
 		accel = carengine->getBaseAccel();
@@ -61,7 +78,28 @@ public:
 		glutPostRedisplay();
 	}
 
+	void setImage(char* filename) {
+		texture_id = SOIL_load_OGL_texture
+		(
+			filename,
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	}
+
 	void turnLeft() {
+		left_right = false;
+		animating = true;
+		
+		/*
 		if (getX() == LeftmostOne) {
 			return;
 		}
@@ -77,9 +115,14 @@ public:
 		else if (getX() == LeftmostFive) {
 			setX(LeftmostFour);			//can make it explode instead...
 		}
+		*/
 	}
 
 	void turnRight() {
+		left_right = true;
+		animating = true;
+
+		/*
 		if (getX() == LeftmostOne) {
 			setX(LeftmostTwo);
 		}
@@ -95,6 +138,7 @@ public:
 		else if (getX() == LeftmostFive) {
 			return;						//can make it explode instead...
 		}
+		*/
 	}
 
 	/*----------------------------Getters-------------------------------------*/
@@ -110,6 +154,16 @@ public:
 	int getRPM() const {
 		return RPM;
 	}
+
+	bool getAnimating() const {
+		return animating;
+	}
+
+	bool getLeftRight() const {
+		return left_right;
+	}
+
+
 
 	/*--------------------------------Special----------------------------------*/
 
@@ -143,12 +197,48 @@ public:
 
 	}
 
-	void Timer::action() {
+	void movementStart() {
 
 	}
 
+	void movementLoop() {
+		if (left_right == false) {
+			x -= 0.01;
+
+			if (x == LeftmostOne || x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour) {
+				cout << "left stop" << endl;
+				animating = false;
+				redrawScene();
+				return;
+			}
+		}
+		else if (left_right == true) {
+			x += 0.01;
+
+			if (x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour || x == LeftmostFive) {
+				cout << "right stop" << endl;
+				animating = false;
+				redrawScene();
+				return;
+			}
+
+		}
+	}
+
+	void action() {
+		if (animating) {
+			movementLoop();
+			redrawScene();
+
+
+			//animating = false;
+		}
+	}
+
 	~car() {
-		
+		delete filename;
+		delete carengine;
+		delete cargearbox;
 	}
 
 };

@@ -22,7 +22,7 @@ public:
 
 	Obstacle() : TexRect("", 0, 0, 0, 0) {
 		changeLane();
-		cycle = 1;
+		cycle = 0;
 		//imageFile = "";
 		//obstacleType = 0;
 	}
@@ -31,10 +31,10 @@ public:
 		changeLane();
 		//imageFile = (char*) map_filename;
 		//obstacleType = 1;
-		cycle = 1;
+		cycle = 0;
 
 		animating = false;
-		setRate(1);
+		setRate(16);
 		start();
 	};
 
@@ -52,27 +52,22 @@ public:
 
 	void Spawn() {
 		if (lane == 1) {
-			cout << "wow 1" << endl;
 			setX(LeftmostOne);
 			setY(1.35);
 		}
 		else if (lane == 2) {
-			cout << "wow 2" << endl;
 			setX(LeftmostTwo);
 			setY(1.35);
 		}
 		else if (lane == 3) {
-			cout << "wow 3" << endl;
 			setX(LeftmostThree);
 			setY(1.35);
 		}
 		else if (lane == 4) {
-			cout << "wow 4" << endl;
 			setX(LeftmostFour);
 			setY(1.35);
 		}
 		else if (lane == 5) {
-			cout << "wow 5" << endl;
 			setX(LeftmostFive);
 			setY(1.35);
 		}
