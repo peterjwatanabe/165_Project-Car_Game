@@ -36,9 +36,9 @@ void App::draw() {
 		selectedCar->draw(0.15);
 		
 											// place stuff outside of here in here once done : NOTE
-		//barrels[0]->draw(0.0);
-		//barrels[1]->draw(0.0);
-		//barrels[2]->draw(0.0);
+		barrels[0]->draw(0.0);
+		barrels[1]->draw(0.0);
+		barrels[2]->draw(0.0);
 
 	}
 	
@@ -46,9 +46,15 @@ void App::draw() {
 
 void App::idle() {
 	if (intro->getIntroDone()) {
-		//barrels[0]->startMovement();
-		//barrels[1]->startMovement();
-		//barrels[2]->startMovement();
+		barrels[0]->startMovement();
+		barrels[1]->startMovement();
+		barrels[2]->startMovement();
+
+		/*
+		barrels[0]->getHit(selectedCar->getX(), selectedCar->getY());
+		barrels[1]->getHit(selectedCar->getX(), selectedCar->getY());
+		barrels[2]->getHit(selectedCar->getX(), selectedCar->getY());
+		*/
 
 	}
 	

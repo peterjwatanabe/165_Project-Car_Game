@@ -203,24 +203,40 @@ public:
 
 	void movementLoop() {
 		if (left_right == false) {
+
+			if (x < -0.97) {
+				animating = false;
+				return;
+			}
 			x -= 0.01;
 
+			
+			/*
 			if (x == LeftmostOne || x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour) {
 				cout << "left stop" << endl;
 				animating = false;
-				redrawScene();
 				return;
 			}
+			*/
 		}
 		else if (left_right == true) {
+
+			if (x > 0.7) {
+				animating = false;
+				return;
+			}
+
 			x += 0.01;
 
+			
+
+			/*
 			if (x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour || x == LeftmostFive) {
 				cout << "right stop" << endl;
 				animating = false;
-				redrawScene();
 				return;
 			}
+			*/
 
 		}
 	}
