@@ -2,6 +2,7 @@
 #include "App.h"
 #include <vector>
 #include <iostream>
+#include "../visualc15/intro.h"
 
 car* selectedCar;
 
@@ -55,35 +56,13 @@ void App::setup() {
 
 
 App::App(int argc, char** argv) : GlutApp(argc, argv) {
-	mx = 0;
-	my = 0;
 
 	explosion = new AnimatedRect("../fireball.bmp", 6, 6, 100, -0.5, 0.5, 0.5, 0.5);
 
 	fastExplosion = new AnimatedRect("../fireball.bmp", 6, 6, 10, 0.5, 0.5, 0.5, 0.5);
-
-	/*
-	engines = new TexRect("../engines.png", -0.20, 0.95, 0.40, 0.05);
-	gearboxes = new TexRect("../gearboxes.png", -0.20, 0.35, 0.40, 0.05);
-	chassis = new TexRect("../chassis.png", -0.20, -0.65, 0.40, 0.05);
-	engine0 = new TexRect("../standardengine.png", -0.95, 0.30, 0.60, 0.60);
-	engine1 = new TexRect("../sportengine.png", -0.30, 0.30, 0.60, 0.60);
-	engine2 = new TexRect("../racingengine.png", 0.35, 0.30, 0.60, 0.60);
-	gearbox0 = new TexRect("../stockgearing.png", -0.95, -0.30, 0.60, 0.60);
-	gearbox1 = new TexRect("../rallygearing.png", -0.30, -0.30, 0.60, 0.60);
-	gearbox2 = new TexRect("../racegearing.png", 0.35, -0.30, 0.60, 0.60);
-	chassis0 = new TexRect("../E30.png", -0.95, -0.95, 0.60, 0.60);
-	chassis1 = new TexRect("../shelby.png", -0.30, -0.95, 0.60, 0.60);
-	chassis2 = new TexRect("../lambo.png", 0.35, -0.95, 0.60, 0.60);
-	*/
-	setup();
 	
-	/*
-	for (int i = 0; i < 5; i++) {
-		barrels.push_back(new Obstacle("../pixel-barrel.png"));
-	}
-	*/
-	background = new TexRect("../road.png", -1, 1, 2, 2);
+	selectedCar = new car();
+	intro = new introduction();
 	
 }
 
@@ -93,23 +72,13 @@ void App::draw() {
     explosion->draw(0.15);
     fastExplosion->draw(0.15);
 
-	//barrels[0]->draw(1);
+	intro->display();
+	intro->setup(mx, my);
+	selectedCar = intro->getCar();
+	intro->continueToGame();
 
-	/*
-	engines->draw(0.0);
-	gearboxes->draw(0.0);
-	chassis->draw(0.0);
-	engine0->draw(0.0);
-	engine1->draw(0.0);
-	engine2->draw(0.0);
-	gearbox0->draw(0.0);
-	gearbox1->draw(0.0);
-	gearbox2->draw(0.0);
-	chassis0->draw(0.0);
-	chassis1->draw(0.0);
-	chassis2->draw(0.0);
-	*/
-	selectedCar->draw(0.15);
+
+	//selectedCar->draw(0.15);
 	//background->draw(1);
 
 
@@ -140,21 +109,6 @@ App::~App(){
     delete fastExplosion;
 
 	delete selectedCar;
-	delete background;
-
-	/*
-	delete engines;
-	delete gearboxes;
-	delete chassis;
-	delete engine0;
-	delete engine1;
-	delete engine2;
-	delete gearbox0;
-	delete gearbox1;
-	delete gearbox2;
-	delete chassis0;
-	delete chassis1;
-	delete chassis2;
-	*/
+	delete intro;
 	
 }
