@@ -14,6 +14,8 @@ class App: public GlutApp {
 
 	car* selectedCar;
 	introduction* intro;
+
+	std::vector<Obstacle*> barrels;
 	
     
 public:

@@ -8,9 +8,13 @@
 App::App(int argc, char** argv) : GlutApp(argc, argv) {
 
 	//explosion = new AnimatedRect("../fireball.bmp", 6, 6, 100, -0.5, 0.5, 0.5, 0.5);
-	
+
 	selectedCar = new car();
 	intro = new introduction();
+
+	for (int i = 0; i < 5; i++) {
+		barrels.push_back(new Obstacle("../pixel-barrel.png"));
+	}
 	
 }
 
@@ -18,14 +22,19 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 
 void App::draw() {
 
-	intro->display();
-	intro->setup(mx, my);
-	selectedCar = intro->selectedCar;
-	intro->continueToGame();
-
-
-	selectedCar->draw(0.15);
-	selectedCar->redrawScene();
+	if (!(intro->getIntroDone())) {
+		intro->display();
+		intro->setup(mx, my);
+		selectedCar = intro->selectedCar;
+		intro->continueToGame();
+	}
+	
+	if (intro->getIntroDone()) {
+		selectedCar->draw(0.15);
+		selectedCar->redrawScene();
+		barrels[0]->Spawn(4);
+	}
+	
 
 
 }
@@ -38,6 +47,14 @@ void App::keyDown(unsigned char key, float x, float y){
     if (key == 27){
         exit(0);
     }
+
+	if (key == 'a') {
+		selectedCar->turnLeft();
+	}
+
+	if (key == 'd') {
+		selectedCar->turnRight();
+	}
     
 }
 
@@ -52,5 +69,9 @@ App::~App(){
 
 	delete selectedCar;
 	delete intro;
+
+	for (int i = 0; i < 5; i++) {
+		delete barrels[i];
+	}
 	
 }

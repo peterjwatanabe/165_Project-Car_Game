@@ -6,20 +6,32 @@
 
 class car : public TexRect, protected Timer {
 	
-	float position, velocity, accel = 0;
+	float velocity, accel = 0;
 	int RPM;
+	char* filename;
 	engine* carengine;
 	gearbox* cargearbox;
 
 public:
 
 	car::car() : TexRect("", 0, 0, 0, 0) {
-		position = 0; velocity = 0; accel = 0; RPM = 0;
+		velocity = 0; accel = 0; RPM = 0;
 	}
 																	  //filename, rows, columns, rate, x, y, w, h
-	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, 0, 0, 0.370, 0.632) {
+	car::car(char* fileName, engine &carengine, gearbox &cargearbox) : TexRect(fileName, LeftmostThree, 0, 0.370, 0.632) {
 		this->carengine = &carengine;
 		this->cargearbox = &cargearbox;
+		this->filename = fileName;
+		accel = this->carengine->getBaseAccel();
+		accel += this->cargearbox->getBonusAccel();
+	}
+
+	car::car(const car& someCar): TexRect((&someCar)->filename, 0, 0, 0.370, 0.632) {
+		this->carengine = someCar.carengine;
+		this->cargearbox = someCar.cargearbox;
+		this->filename = someCar.filename;
+		accel = this->carengine->getBaseAccel();
+		accel += this->cargearbox->getBonusAccel();
 	}
 
 	/*---------------------------Setters-------------------------------------*/
@@ -38,10 +50,6 @@ public:
 		accel += cargearbox->getBonusAccel();
 	}
 
-	void setPosition(float pos) {
-		position = pos;
-	}
-
 	void setAccel(float acceleration) {
 		accel = carengine->getBaseAccel() + cargearbox->getBonusAccel();
 	}
@@ -51,6 +59,42 @@ public:
 		accel += -0.02;		//lull in gear shifting affects accel & speed
 		cargearbox->shift();
 		glutPostRedisplay();
+	}
+
+	void turnLeft() {
+		if (getX() == LeftmostOne) {
+			return;
+		}
+		else if (getX() == LeftmostTwo) {
+			setX(LeftmostOne);
+		}
+		else if (getX() == LeftmostThree) {
+			setX(LeftmostTwo);
+		}
+		else if (getX() == LeftmostFour) {
+			setX(LeftmostThree);
+		}
+		else if (getX() == LeftmostFive) {
+			setX(LeftmostFour);			//can make it explode instead...
+		}
+	}
+
+	void turnRight() {
+		if (getX() == LeftmostOne) {
+			setX(LeftmostTwo);
+		}
+		else if (getX() == LeftmostTwo) {
+			setX(LeftmostThree);
+		}
+		else if (getX() == LeftmostThree) {
+			setX(LeftmostFour);
+		}
+		else if (getX() == LeftmostFour) {
+			setX(LeftmostFive);
+		}
+		else if (getX() == LeftmostFive) {
+			return;						//can make it explode instead...
+		}
 	}
 
 	/*----------------------------Getters-------------------------------------*/
@@ -63,10 +107,6 @@ public:
 		return velocity;
 	}
 
-	float getPosition() const {
-		return position;
-	}
-
 	int getRPM() const {
 		return RPM;
 	}
@@ -74,6 +114,7 @@ public:
 	/*--------------------------------Special----------------------------------*/
 
 	float accelerate() {
+		
 		if (RPM >= carengine->getTopRPM()) {
 			return velocity;					//Don't accelerate if at max RPM
 		}
@@ -98,7 +139,7 @@ public:
 			break;
 		}
 		
-		return (position += velocity += accel);
+		return velocity + accel;
 
 	}
 

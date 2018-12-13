@@ -19,7 +19,7 @@ public:
 		obstacleType = 0;
 	}
 
-	Obstacle(const char* map_filename, float x = 0, float y = 0, float w = 0.5, float h = 0.5) : TexRect(map_filename, x, y, w, h) {
+	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.10, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		imageFile = (char*) map_filename;
 		obstacleType = 1;
@@ -29,7 +29,7 @@ public:
 		lane = getRandom();
 	}
 
-	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!!!!!!!!!!!!!!
+	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!
 		Obstacle* temp = new Obstacle(imageFile);
 		//this = temp;
 	}
@@ -38,23 +38,24 @@ public:
 	void Spawn(int carLane) {
 		if (lane == 1) {
 			setX(LeftmostOne);
-			setY(1.4);
+			setY(1.0);
+			std::cout << "This is 1" << std::endl;
 		};
 		if (lane == 2) {
 			setX(LeftmostTwo);
-			setY(1.4);
+			setY(1.0);
 		};
 		if (lane == 3) {
 			setX(LeftmostThree);
-			setY(1.4);
+			setY(1.0);
 		};
 		if (lane == 4) {
 			setX(LeftmostFour);
-			setY(1.4);
+			setY(1.0);
 		};
 		if (lane == 5) {
 			setX(LeftmostFour);
-			setY(1.4);
+			setY(1.0);
 		};
 
 		if (lane == 6) {		// "lane 6" is the car's current lane position
@@ -73,8 +74,9 @@ public:
 			if (carLane == 5) {
 				setX(LeftmostFive);
 			}
-			setY(1.4);
+			setY(1.0);
 		};
+		this->draw(-0.10);
 	}
 
 	void Despawn() {
@@ -82,7 +84,7 @@ public:
 	}
 
 	void movement(car& car) {
-		
+		setY(y - 0.01);
 	}
 
 	void getHit(int positionX, int positionY) {

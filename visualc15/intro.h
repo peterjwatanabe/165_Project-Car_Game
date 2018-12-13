@@ -180,7 +180,6 @@ public:
 		delete selectedGearbox;
 		delete vehicle;
 
-		delete tempCar;
 
 		delete backg;
 	}
