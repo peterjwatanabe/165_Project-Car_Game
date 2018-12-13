@@ -56,6 +56,11 @@ void App::idle() {
 		barrels[1]->startMovement();
 		barrels[2]->startMovement();
 
+		barrels[0]->changeImage();
+		barrels[1]->changeImage();
+		barrels[2]->changeImage();
+
+
 		if (selectedCar->getEndState() == false) {
 			for (int i = 0; i < 3; i++) {
 				if (barrels[i]->getHit(selectedCar->getX(), selectedCar->getY())) {
