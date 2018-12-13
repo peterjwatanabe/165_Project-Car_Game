@@ -5,31 +5,41 @@
 #include "../visualc15/objectDimensions.h"
 #include "../visualc15/car.h"
 
-class Obstacle : public TexRect, protected Timer{
+using namespace std;
+
+class Obstacle : public TexRect, protected Timer {
 protected:
 	int lane;
-	char* imageFile;
-	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
+	//char* imageFile;
+	//int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 	bool spawning;
+
+	int cycle;
+
+	bool animating;
 
 public:
 
 	Obstacle() : TexRect("", 0, 0, 0, 0) {
 		changeLane();
-		imageFile = "";
-		obstacleType = 0;
+		cycle = 1;
+		//imageFile = "";
+		//obstacleType = 0;
 	}
 
-	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.10, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
+	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.35, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
-		imageFile = (char*) map_filename;
-		obstacleType = 1;
+		//imageFile = (char*) map_filename;
+		//obstacleType = 1;
+		cycle = 1;
+		animating = false;
+		setRate(16);
+		start();
 		
 	};
 
 	void changeLane() {		// decides what lane the obstacle is in
 		lane = getRandom();
-		spawning = true;
 	}
 
 	void changeObstacle(char* imageFile) {	// changes the image of the obstacle		!!!
@@ -37,69 +47,49 @@ public:
 		//this = temp;
 	}
 
-
-	void Spawn(int carLane) {
-		if (spawning) {
-			if (lane == 1) {
-				setX(LeftmostOne);
-				setY(1.35);
-				//std::cout << "This is 1" << std::endl;
-			};
-			if (lane == 2) {
-				setX(LeftmostTwo);
-				setY(1.35);
-				//std::cout << "This is 2" << std::endl;
-			};
-			if (lane == 3) {
-				setX(LeftmostThree);
-				setY(1.35);
-				//std::cout << "This is 3" << std::endl;
-			};
-			if (lane == 4) {
-				setX(LeftmostFour);
-				setY(1.35);
-				//std::cout << "This is 4" << std::endl;
-			};
-			if (lane == 5) {
-				setX(LeftmostFive);
-				setY(1.35);
-				//std::cout << "This is 5" << std::endl;
-			};
-
-			if (lane == 6) {		// "lane 6" is the car's current lane position
-				//std::cout << "This is 6" << std::endl;
-				if (carLane == 1) {
-					setX(LeftmostOne);
-				}
-				if (carLane == 2) {
-					setX(LeftmostTwo);
-				}
-				if (carLane == 3) {
-					setX(LeftmostThree);
-				}
-				if (carLane == 4) {
-					setX(LeftmostFour);
-				}
-				if (carLane == 5) {
-					setX(LeftmostFive);
-				}
-				setY(1.0);
-			};
-			spawning = false;
+	void Spawn() {
+		if (spawning == false) {
+			return;
 		}
-		this->draw(-0.10);
-		
+		animating = true;
+
+		if (lane == 1) {
+			setX(LeftmostOne);
+			setY(1.35);
+		}
+		else if (lane == 2) {
+			setX(LeftmostTwo);
+			setY(1.35);
+		}
+		else if (lane == 3) {
+			setX(LeftmostThree);
+			setY(1.35);
+		}
+		else if (lane == 4) {
+			setX(LeftmostFour);
+			setY(1.35);
+		}
+		else if (lane == 5) {
+			setX(LeftmostFive);
+			setY(1.35);
+		}
+
+		spawning = false;
 	}
 
 	void Despawn() {
-		if (getY() <= -1.0 && spawning == false) {
-			changeLane();
-		}
-		
+		changeLane();
 	}
 
+
 	void action() {
-		y -= 0.001;
+		if (animating) {
+			y -= 0.01;
+			redrawScene();
+			if (y <= -1.0) {
+				Despawn();
+			}
+		}
 	}
 
 	void getHit(int positionX, int positionY) {

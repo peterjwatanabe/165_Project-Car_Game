@@ -5,7 +5,7 @@
 
 static int getRandom() {
 	srand(time(NULL));
-	int randNum = (rand() % 6) + 1;	// generates a number 1-6
+	int randNum = (rand() % 5) + 1;	// generates a number 1-5
 	return randNum;
 }
 

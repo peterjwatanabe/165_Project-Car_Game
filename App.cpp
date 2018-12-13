@@ -12,42 +12,54 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	selectedCar = new car();
 	intro = new introduction();
 
+	barrel = new Obstacle("../pixel-barrel.png");
+
+	
 	for (int i = 0; i < 5; i++) {
 		barrels.push_back(new Obstacle("../pixel-barrel.png"));
 	}
+	
 	
 }
 
 
 
 void App::draw() {
-
+	/*
 	if (!(intro->getIntroDone())) {
 		intro->display();
 		intro->setup(mx, my);
 		selectedCar = intro->selectedCar;
 		intro->continueToGame();
 	}
+
 	
 	if (intro->getIntroDone()) {
 		selectedCar->draw(0.15);
 		selectedCar->redrawScene();
 		
-		barrels[0]->Spawn(1);
-		barrels[0]->Despawn();
-		
-		glutPostRedisplay();
 
-		barrels[1]->Spawn(1);
-		barrels[1]->Despawn();
+
 	}
+	*/
+
+	//barrel->draw(0.0);
 	
+	barrels[0]->draw(0.0);
+	barrels[1]->draw(0.0);
+	barrels[2]->draw(0.0);
+	barrels[3]->draw(0.0);
+	barrels[4]->draw(0.0);
 
 
 }
 
 void App::idle() {
-	//barrels[0]->movement();
+	barrels[0]->Spawn();
+	barrels[1]->Spawn();
+	barrels[2]->Spawn();
+	barrels[3]->Spawn();
+	barrels[4]->Spawn();
 }
 
 void App::keyDown(unsigned char key, float x, float y){
@@ -77,8 +89,11 @@ App::~App(){
 	delete selectedCar;
 	delete intro;
 
+	delete barrel;
+	
 	for (int i = 0; i < 5; i++) {
 		delete barrels[i];
 	}
+	
 	
 }
