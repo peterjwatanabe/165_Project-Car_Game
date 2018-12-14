@@ -129,7 +129,7 @@ void App::idle() {
 
 		if (selectedCar->getEndState() == false) {
 			for (int i = 0; i < 3; i++) {
-				if (barrels[i]->getHit(selectedCar->getX(), selectedCar->getY())) {
+				if (barrels[i]->getHit(selectedCar->getX() , selectedCar->getY())) {
 					if (selectedCar->getFilename() == "../lambo.png") {
 						selectedCar->setImage("../lambobroke.png");
 						selectedCar->setAnimating(false);

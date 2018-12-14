@@ -32,7 +32,7 @@ public:
 	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.35, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		obstacleType = 1;
-		cycle = 47;
+		cycle = 0;
 		cycleOver = false;
 
 		start();
@@ -171,7 +171,13 @@ public:
 	}
 
 	bool getHit(float positionX, float positionY) {
-		if (contains(positionX, positionY)) {
+		if (contains(positionX + 0.15, positionY)) {
+			return true;
+		}
+		else if (contains(positionX, positionY - 0.4)) {
+			return true;
+		}
+		else if (contains(positionX + 0.30, positionY - 0.4)) {
 			return true;
 		}
 		return false;
