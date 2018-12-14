@@ -34,7 +34,7 @@ public:
 		left_right = true;
 		endState = false;
 
-		setRate(7);
+		setRate(3);
 		start();
 	}
 
@@ -49,7 +49,7 @@ public:
 		left_right = true;
 		endState = false;
 
-		setRate(7);
+		setRate(3);
 		start();
 	}
 
@@ -158,7 +158,7 @@ public:
 	/*----------------------------Getters-------------------------------------*/
 
 	float getAccel() const{
-		return accel;
+		return carengine->getBaseAccel();
 	}
 
 	float getVelocity() const {
@@ -173,8 +173,8 @@ public:
 		return filename;
 	}
 
-	int getEngineBonus() const {
-		return carengine->getEngineBonus();
+	unsigned int getEngineBonus() const {
+		return carengine->getBonus();
 	}
 
 	bool getAnimating() const {

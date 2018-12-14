@@ -32,7 +32,7 @@ class App: public GlutApp {
 
 	clock_t startTime;
 	clock_t endTime;
-	int elapsedTime;
+	float elapsedTime;
 	bool used;
 	bool used2;
 	int points;

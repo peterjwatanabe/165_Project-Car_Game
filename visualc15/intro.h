@@ -48,9 +48,10 @@ public:
 		gearbox0 = new TexRect("../stockgearing.png", -0.95, 0.22, 0.60, 0.60);
 		gearbox1 = new TexRect("../rallygearing.png", -0.30, 0.22, 0.60, 0.60);
 		gearbox2 = new TexRect("../racegearing.png", 0.35, 0.22, 0.60, 0.60);
-		chassis0 = new TexRect("../E30.png", -0.95, -0.43, 0.60, 0.60);
-		chassis1 = new TexRect("../shelby.png", -0.30, -0.43, 0.60, 0.60);
-		chassis2 = new TexRect("../lambo.png", 0.35, -0.43, 0.60, 0.60);
+		chassis0 = new TexRect("../E30.png", -0.80, -0.43, 0.351, 0.60);
+		chassis1 = new TexRect("../shelby.png", -0.1755, -0.43, 0.351, 0.60);
+		chassis2 = new TexRect("../lambo.png", 0.45, -0.43, 0.351, 0.60);
+
 
 		selectedCar = new car();
 		selectedEngine = new engine();

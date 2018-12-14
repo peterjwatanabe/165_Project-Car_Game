@@ -16,6 +16,8 @@ protected:
 	bool cycleOver;
 	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 
+	float acceleration;
+
 	bool animating;
 
 public:
@@ -24,21 +26,33 @@ public:
 		changeLane();
 		cycle = 0;
 		obstacleType = 0;
+		acceleration = 0.0;
 	}
 
 	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.35, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		obstacleType = 1;
-		cycle = 0;
+		cycle = 47;
 		cycleOver = false;
 
-		animating = false;
-		setRate(16);
 		start();
+		setRate(16);
+
+		acceleration = 0.0;
+
+		animating = false;
 	};
+
+	void setAcceleration(float accel) {
+		acceleration = accel;
+	}
 
 	void setAnimating(bool anim) {
 		animating = anim;
+	}
+
+	float getAcceleration() const {
+		return acceleration;
 	}
 
 	int getCycle() const {
@@ -98,7 +112,7 @@ public:
 
 	void action() {
 		if (animating) {
-			y -= 0.01;
+			y -= acceleration;
 			redrawScene();
 			if (y <= -1.1) {
 				Despawn();
@@ -154,17 +168,6 @@ public:
 				obstacleType = 1;
 			}
 		}		
-	}
-
-	void changingGears() {
-		/*
-		if () {
-			setRate(15);
-		}
-		else if () {
-			setRate(13);
-		}
-		*/
 	}
 
 	bool getHit(float positionX, float positionY) {

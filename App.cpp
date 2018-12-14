@@ -64,20 +64,24 @@ void App::draw() {
 
 	if (selectedCar->getEndState() == true && gameoverState == false && gameStatus == 1) {
 		gameover->finishTheGame();
-		gameover->displayStats(0, 1);
 		gameoverState = true;
+		cout << "Please click the screen for the GAME OVER screen." << endl;
 	}
-	if (gameoverState == true) {
+	if (gameoverState == true && used2 == true) {							// Need to click for some reason to display gameover screen
+		float points;
+		points = (selectedCar->getEngineBonus() + ((elapsedTime / 10) * 100));
+		gameover->displayStats(elapsedTime, points);
 		gameover->drawStats();
 	}
 
-
 	if (selectedCar->getEndState() == true && gamewonState == false && gameStatus == 2) {
 		gamewon->finishTheGame();
-		gamewon->displayStats(0, 1);
 		gamewonState = true;
 	}
-	if (gamewonState == true) {
+	if (gamewonState == true && used2 == true) {
+		float points;
+		points = (500 + selectedCar->getEngineBonus() + (100 / elapsedTime * 1000));
+		gamewon->displayStats(elapsedTime, points);
 		gamewon->drawStats();
 		gamewon->drawBiker();
 	}
@@ -87,29 +91,25 @@ void App::draw() {
 }
 
 void App::idle() {
-	/*
+
 	if (intro->getIntroDone() == true && used == false) {
 		startTime = clock();
 		used = true;
 	}
 
 	if (intro->getIntroDone() == true && selectedCar->getEndState() == true && used2 == false) {
-		cout << "goodbye" << endl;
 		endTime = clock();
-		elapsedTime = startTime - endTime;
+		elapsedTime = endTime - startTime;
 		elapsedTime = (elapsedTime / CLOCKS_PER_SEC);
-		if (gamewonState == true) {
-		points = (500 + selectedCar->getEngineBonus() + (100 / elapsedTime * 1000))
-			}
-			else if (gameoverState == true) {
-			points = (0 + selectedCar->getEngineBonus() + ((elapsedTime / 10) * 1000))
-			}
 		used2 = true;
 	}
-	*/
 	
 
 	if (intro->getIntroDone()) {
+		barrels[0]->setAcceleration(selectedCar->getAccel());
+		barrels[1]->setAcceleration(selectedCar->getAccel());
+		barrels[2]->setAcceleration(selectedCar->getAccel());
+
 		barrels[0]->startMovement();
 		barrels[1]->startMovement();
 		barrels[2]->startMovement();
@@ -181,11 +181,6 @@ void App::idle() {
 			selectedCar->setEndState(true);
 			gameStatus = 2;
 		}
-		
-		
-		
-		
-
 	}
 	
 
