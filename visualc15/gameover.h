@@ -29,7 +29,7 @@ public:
 		totalTime = 0, minutes = 0, tenseconds = 0, seconds = 0, thousands = 0, hundreds = 0, tens = 0, ones = 0, finalScore = 0;
 	}
 
-	Game_Over(char* fileName, float totaltime, int points) {
+	Game_Over(char* fileName, int totaltime, int points) {
 		backg = new TexRect(fileName, -1, 1, 2, 2);
 		finalScore = points;
 		totalTime = totaltime;

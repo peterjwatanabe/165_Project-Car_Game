@@ -9,6 +9,8 @@
 #include "../visualc15/gameover.h"
 #include "../visualc15/gamewon.h"
 #include <vector>
+#include <ctime>
+#include <cstdlib>
 
 
 class App: public GlutApp {
@@ -27,6 +29,13 @@ class App: public GlutApp {
 
 	Game_Over* gameover;
 	Game_Won* gamewon;
+
+	//clock_t startTime;
+	//clock_t endTime;
+	//int elapsedTime;
+	//bool used;
+	//bool used2;
+	//int points;
 	
     
 public:

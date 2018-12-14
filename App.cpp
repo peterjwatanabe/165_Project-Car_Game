@@ -31,7 +31,9 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	gameover = new Game_Over("../gameover.jpg", 0, 0);
 	gamewon = new Game_Won("../gamewon.jpg", 0, 0);
 	
-	
+	//used = false;
+	//used2 = false;
+	//points = 0;
 }
 
 
@@ -60,11 +62,9 @@ void App::draw() {
 		
 	}
 
-	cout << gameStatus << endl;
-
 	if (selectedCar->getEndState() == true && gameoverState == false && gameStatus == 1) {
 		gameover->finishTheGame();
-		gameover->displayStats(1.0, 1);
+		gameover->displayStats(0, 1);
 		gameoverState = true;
 	}
 	if (gameoverState == true) {
@@ -74,7 +74,7 @@ void App::draw() {
 
 	if (selectedCar->getEndState() == true && gamewonState == false && gameStatus == 2) {
 		gamewon->finishTheGame();
-		gamewon->displayStats(1.0, 1);
+		gamewon->displayStats(0, 1);
 		gamewonState = true;
 	}
 	if (gamewonState == true) {
@@ -87,6 +87,21 @@ void App::draw() {
 }
 
 void App::idle() {
+	/*
+	if (intro->getIntroDone() == true && used == false) {
+		startTime = clock();
+		used = true;
+	}
+
+	if (intro->getIntroDone() == true && selectedCar->getEndState() == true && used2 == false) {
+		cout << "goodbye" << endl;
+		endTime = clock();
+		elapsedTime = startTime - endTime;
+		elapsedTime = (elapsedTime / CLOCKS_PER_SEC);
+		used2 = true;
+	}
+	*/
+
 	if (intro->getIntroDone()) {
 		barrels[0]->startMovement();
 		barrels[1]->startMovement();
@@ -104,6 +119,7 @@ void App::idle() {
 		}
 
 		if (selectedCar->getEndState()) {
+			//_sleep(1200);
 			//explosion->playOnce();
 		}
 
@@ -120,7 +136,6 @@ void App::idle() {
 						explosionY = barrels[i]->getY();
 						explosion->setX(explosionX);
 						explosion->setY(explosionY);
-						//explosion->playOnce();
 						selectedCar->setEndState(true);
 						gameStatus = 1;
 						break;
@@ -135,7 +150,6 @@ void App::idle() {
 						explosionY = barrels[i]->getY();
 						explosion->setX(explosionX);
 						explosion->setY(explosionY);
-						//explosion->playOnce();
 						selectedCar->setEndState(true);
 						gameStatus = 1;
 						break;
@@ -150,7 +164,6 @@ void App::idle() {
 						explosionY = barrels[i]->getY();
 						explosion->setX(explosionX);
 						explosion->setY(explosionY);
-						//explosion->playOnce();
 						selectedCar->setEndState(true);
 						gameStatus = 1;
 						break;

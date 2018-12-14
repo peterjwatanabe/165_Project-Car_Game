@@ -11,7 +11,7 @@ public:
 
 	Game_Won() : Game_Over() {}
 
-	Game_Won(char* filename, float totalTime, int points) : Game_Over(filename, totalTime, points) {
+	Game_Won(char* filename, int totalTime, int points) : Game_Over(filename, totalTime, points) {
 		if (checkScore() > 0) {
 			image = "../bikerkyrilov.png";
 		}
