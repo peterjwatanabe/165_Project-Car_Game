@@ -13,6 +13,7 @@ protected:
 	bool spawning;
 
 	int cycle;
+	bool cycleOver;
 	int obstacleType; // 4 different types: 1 regular, 2 desert, 3 jungle, 4 ice
 
 	bool animating;
@@ -28,7 +29,8 @@ public:
 	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.35, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		obstacleType = 1;
-		cycle = 0;
+		cycle = 48;
+		cycleOver = false;
 
 		animating = false;
 		setRate(16);
@@ -43,9 +45,13 @@ public:
 		return cycle;
 	}
 
+	bool lastCycle() const {
+		return cycleOver;
+	}
+
 
 	//----------------------------------------------------------Functions-----------------------------------------------------------------
-	void startMovement() {
+	virtual void startMovement() {
 		if (spawning == true) {
 			animating = true;
 			Spawn();
@@ -81,6 +87,7 @@ public:
 			setY(1.35);
 		}
 		cycle += 1;
+		checkCycle();
 		spawning = false;
 	}
 
@@ -96,6 +103,12 @@ public:
 			if (y <= -1.0) {
 				Despawn();
 			}
+		}
+	}
+
+	void checkCycle() {
+		if (cycle == 50) {
+			cycleOver = true;
 		}
 	}
 
@@ -140,15 +153,7 @@ public:
 				setImage("../pixel-barrel.png");
 				obstacleType = 1;
 			}
-		}
-		else if (cycle == 50) {
-			if (obstacleType != 5) {
-
-				setImage("../finish_line.png");
-				obstacleType = 5;
-			}
-		}
-		
+		}		
 	}
 
 	bool getHit(float positionX, float positionY) {

@@ -4,9 +4,15 @@
 #include <iostream>
 #include "../visualc15/intro.h"
 
+using namespace std;
+
 float explosionX;
 float explosionY;
 bool animateOnce = false;
+
+bool gameoverState = false;
+bool gamewonState = false;
+int gameStatus = 0;		// 1:over, 2:won
 
 App::App(int argc, char** argv) : GlutApp(argc, argv) {
 
@@ -20,6 +26,10 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	for (int i = 0; i < 3; i++) {
 		barrels.push_back(new Obstacle("../pixel-barrel.png"));
 	}
+	finish = new finishLine();
+
+	gameover = new Game_Over("../gameover.jpg", 0, 0);
+	gamewon = new Game_Won("../gamewon.jpg", 0, 0);
 	
 	
 }
@@ -36,17 +46,43 @@ void App::draw() {
 	}
 
 	
-	if (intro->getIntroDone()) {
+	if (intro->getIntroDone() && !(selectedCar->getEndState())) {
 		background->draw(-0.5);
 
 		barrels[0]->draw(-0.1);
 		barrels[1]->draw(-0.1);
 		barrels[2]->draw(-0.1);
+		finish->draw(-0.1);
 
 		selectedCar->draw(0.0);
 
 		explosion->draw(0.15);
+		
 	}
+
+	cout << gameStatus << endl;
+
+	if (selectedCar->getEndState() == true && gameoverState == false && gameStatus == 1) {
+		gameover->finishTheGame();
+		gameover->displayStats(1.0, 1);
+		gameoverState = true;
+	}
+	if (gameoverState == true) {
+		gameover->drawStats();
+	}
+
+
+	if (selectedCar->getEndState() == true && gamewonState == false && gameStatus == 2) {
+		gamewon->finishTheGame();
+		gamewon->displayStats(1.0, 1);
+		gamewonState = true;
+	}
+	if (gamewonState == true) {
+		gamewon->drawStats();
+		gamewon->drawBiker();
+	}
+
+	
 	
 }
 
@@ -60,6 +96,16 @@ void App::idle() {
 		barrels[1]->changeImage();
 		barrels[2]->changeImage();
 
+		if (barrels[0]->lastCycle()) {
+			barrels[0]->setAnimating(false);
+			barrels[1]->setAnimating(false);
+			barrels[2]->setAnimating(false);
+			finish->moveFinish();
+		}
+
+		if (selectedCar->getEndState()) {
+			//explosion->playOnce();
+		}
 
 		if (selectedCar->getEndState() == false) {
 			for (int i = 0; i < 3; i++) {
@@ -76,6 +122,7 @@ void App::idle() {
 						explosion->setY(explosionY);
 						//explosion->playOnce();
 						selectedCar->setEndState(true);
+						gameStatus = 1;
 						break;
 					}
 					else if (selectedCar->getFilename() == "../shelby.png") {
@@ -90,6 +137,7 @@ void App::idle() {
 						explosion->setY(explosionY);
 						//explosion->playOnce();
 						selectedCar->setEndState(true);
+						gameStatus = 1;
 						break;
 					}
 					else if (selectedCar->getFilename() == "../E30.png") {
@@ -104,6 +152,7 @@ void App::idle() {
 						explosion->setY(explosionY);
 						//explosion->playOnce();
 						selectedCar->setEndState(true);
+						gameStatus = 1;
 						break;
 					}
 				}
@@ -111,10 +160,14 @@ void App::idle() {
 		}
 
 		
-
-		if (selectedCar->getEndState()) {
-			explosion->playOnce();
+		if (finish->getHit(selectedCar->getX(), selectedCar->getY()) && gameStatus != 2) {
+			selectedCar->setEndState(true);
+			gameStatus = 2;
 		}
+		
+		
+		
+		
 
 	}
 	
@@ -157,6 +210,10 @@ App::~App(){
 	for (int i = 0; i < 3; i++) {
 		delete barrels[i];
 	}
+
+	delete finish;
+	delete gameover;
+	delete gamewon;
 	
 	
 }

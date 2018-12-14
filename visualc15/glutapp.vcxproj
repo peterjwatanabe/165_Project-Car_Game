@@ -143,6 +143,9 @@
     <ClInclude Include="background.h" />
     <ClInclude Include="car.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="finishLine.h" />
+    <ClInclude Include="gameover.h" />
+    <ClInclude Include="gamewon.h" />
     <ClInclude Include="gearbox.h" />
     <ClInclude Include="intro.h" />
     <ClInclude Include="objectDimensions.h" />
