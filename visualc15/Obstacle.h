@@ -29,7 +29,7 @@ public:
 	Obstacle(const char* map_filename, float x = LeftmostThree, float y = 1.35, float w = objWidth, float h = 0.35) : TexRect(map_filename, x, y, w, h) {
 		changeLane();
 		obstacleType = 1;
-		cycle = 48;
+		cycle = 0;
 		cycleOver = false;
 
 		animating = false;

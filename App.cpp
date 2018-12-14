@@ -31,9 +31,9 @@ App::App(int argc, char** argv) : GlutApp(argc, argv) {
 	gameover = new Game_Over("../gameover.jpg", 0, 0);
 	gamewon = new Game_Won("../gamewon.jpg", 0, 0);
 	
-	//used = false;
-	//used2 = false;
-	//points = 0;
+	used = false;
+	used2 = false;
+	points = 0;
 }
 
 
@@ -98,9 +98,16 @@ void App::idle() {
 		endTime = clock();
 		elapsedTime = startTime - endTime;
 		elapsedTime = (elapsedTime / CLOCKS_PER_SEC);
+		if (gamewonState == true) {
+		points = (500 + selectedCar->getEngineBonus() + (100 / elapsedTime * 1000))
+			}
+			else if (gameoverState == true) {
+			points = (0 + selectedCar->getEngineBonus() + ((elapsedTime / 10) * 1000))
+			}
 		used2 = true;
 	}
 	*/
+	
 
 	if (intro->getIntroDone()) {
 		barrels[0]->startMovement();
@@ -118,10 +125,7 @@ void App::idle() {
 			finish->moveFinish();
 		}
 
-		if (selectedCar->getEndState()) {
-			//_sleep(1200);
-			//explosion->playOnce();
-		}
+		
 
 		if (selectedCar->getEndState() == false) {
 			for (int i = 0; i < 3; i++) {

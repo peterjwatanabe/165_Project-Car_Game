@@ -173,6 +173,10 @@ public:
 		return filename;
 	}
 
+	int getEngineBonus() const {
+		return carengine->getEngineBonus();
+	}
+
 	bool getAnimating() const {
 		return animating;
 	}
@@ -222,39 +226,41 @@ public:
 	void movementLoop() {
 		if (left_right == false) {
 
+			
+
+			/*
 			if (x < -0.97) {
 				animating = false;
 				return;
 			}
-			x -= 0.01;
-
+			*/
 			
-			/*
+			x -= 0.01;	
+
 			if (x == LeftmostOne || x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour) {
 				cout << "left stop" << endl;
 				animating = false;
 				return;
 			}
-			*/
 		}
 		else if (left_right == true) {
-
-			if (x > 0.7) {
-				animating = false;
-				return;
-			}
-
-			x += 0.01;
 
 			
 
 			/*
+			if (x > 0.7) {
+				animating = false;
+				return;
+			}
+			*/
+
+			x += 0.01;
+
 			if (x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour || x == LeftmostFive) {
 				cout << "right stop" << endl;
 				animating = false;
 				return;
 			}
-			*/
 
 		}
 	}

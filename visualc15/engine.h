@@ -8,6 +8,7 @@ class engine {
 	int topSpeed;
 	float baseAccel;
 	int topRPM;
+	int engineBonus;
 
 public:
 
@@ -25,18 +26,21 @@ public:
 			topSpeed = 3.0;
 			baseAccel = 0.1;
 			topRPM = 6000;
+			engineBonus = 0;
 			break;
 		case 2:
 			selected_engine = sport;
 			topSpeed = 3.5;
 			baseAccel = 0.15;
 			topRPM = 7000;
+			engineBonus = 250;
 			break;
 		case 3:
 			selected_engine = racing;
 			topSpeed = 4.0;
 			baseAccel = 0.20;
 			topRPM = 7500;
+			engineBonus = 500;
 			break;
 		}
 	}
@@ -51,6 +55,10 @@ public:
 
 	int getTopRPM() const {
 		return topRPM;
+	}
+
+	int getEngineBonus() const {
+		return engineBonus;
 	}
 
 
