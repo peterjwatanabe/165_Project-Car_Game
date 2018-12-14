@@ -100,7 +100,7 @@ public:
 		if (animating) {
 			y -= 0.01;
 			redrawScene();
-			if (y <= -1.0) {
+			if (y <= -1.1) {
 				Despawn();
 			}
 		}
@@ -154,6 +154,17 @@ public:
 				obstacleType = 1;
 			}
 		}		
+	}
+
+	void changingGears() {
+		/*
+		if () {
+			setRate(15);
+		}
+		else if () {
+			setRate(13);
+		}
+		*/
 	}
 
 	bool getHit(float positionX, float positionY) {

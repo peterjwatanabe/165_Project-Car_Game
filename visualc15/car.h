@@ -224,40 +224,42 @@ public:
 	}
 
 	void movementLoop() {
-		if (left_right == false) {
+		if (left_right == false) {			
+			x -= 0.01;	
 
-			
-
-			/*
-			if (x < -0.97) {
+			if (-0.98 < x && x < -0.96) {
 				animating = false;
 				return;
 			}
-			*/
-			
-			x -= 0.01;	
-
-			if (x == LeftmostOne || x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour) {
-				cout << "left stop" << endl;
+			else if (-0.57 < x && x < -0.55) {
+				animating = false;
+				return;
+			}
+			else if (-0.16 < x && x < -0.14) {
+				animating = false;
+				return;
+			}
+			else if (0.25 < x && x < 0.27) {
 				animating = false;
 				return;
 			}
 		}
 		else if (left_right == true) {
+			x += 0.01;
 
-			
-
-			/*
-			if (x > 0.7) {
+			if (-0.57 < x && x < -0.55) {
 				animating = false;
 				return;
 			}
-			*/
-
-			x += 0.01;
-
-			if (x == LeftmostTwo || x == LeftmostThree || x == LeftmostFour || x == LeftmostFive) {
-				cout << "right stop" << endl;
+			else if (-0.16 < x && x < -0.14) {
+				animating = false;
+				return;
+			}
+			else if (0.25 < x && x < 0.27) {
+				animating = false;
+				return;
+			}
+			else if (0.66 < x && x < 0.68) {
 				animating = false;
 				return;
 			}
@@ -269,9 +271,6 @@ public:
 		if (animating) {
 			movementLoop();
 			redrawScene();
-
-
-			//animating = false;
 		}
 	}
 
